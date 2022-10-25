@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;700;800&display=swap');
+
+
+.cad-style {
+    display: block;
+    border-radius: 2%;
+    background-color: rgb(255, 120, 120);
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    max-height: 700px;
+    max-width: 600px;
+    padding-bottom: 50px;
+    padding-top: 25px;
+    visibility: visible;
+    margin-top: 35px;
+    margin-bottom: 35px;
+}
+
+.text-box-style {
+    font-size: 15px;
+    font-family: 'Open Sans';
+    padding-left: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    text-decoration: none;
+    font-weight: 300;
+    text-align: start;
+    color: white;
+    /* background-color: black; */
+    height: 20px;
+    line-height: 20px;
+}
+
+.NDPR-title {
+    font-size: 23px;
+    font-family: 'Open Sans';
+    margin-left: 6%;
+    /* padding-bottom: 0px; */
+    font-weight: 700;
+    text-align: justify;
+    color: white;
+    text-shadow: 3px 2px #020202;
+    transition: transform 2s;
+    /* background-color: antiquewhite; */
+}
+
+.NDPR-title:hover {
+    /* color: rgb(110, 4, 105); */
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.input-box-style {
+    background-color: rgb(55, 60, 65);
+    width: 100%;
+    border-radius: 5px 5px 5px 5px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.034),
+        0 2px 2px rgba(255, 255, 255, 0.048),
+        0 4px 4px rgba(255, 255, 255, 0.06),
+        0 8px 8px rgba(255, 255, 255, 0.072),
+        0 16px 16px rgba(255, 255, 255, 0.086),
+        0 26px 26px rgba(255, 255, 255, 0.1);
+    transition: transform 2s;
+}
+
+.shadow,
+.save-button-style {
+    box-shadow:
+        0 1px 1px rgba(255, 255, 255, 0.034),
+        0 2px 2px rgba(255, 255, 255, 0.048),
+        0 4px 4px rgba(255, 255, 255, 0.06),
+        0 8px 8px rgba(255, 255, 255, 0.072),
+        0 16px 16px rgba(255, 255, 255, 0.086),
+        0 35px 35px rgba(255, 255, 255, 0.12);
+    transition: transform 2s;
+}
+
+.item-style {
+    transition: transform 2s;
+}
+
+.fig-style {
+    width: fit-content;
+    border-radius: 100%;
+    transition: transform 2s;
+}
+
+.fig-card:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+    color: green;
+}
+
+.input-box-style:hover,
+.save-button-style:hover,
+.item-style:hover {
+    transform: scale(1.1);
+    background-color: rgb(41, 44, 48);
+    cursor: pointer;
+}
+
+.COL_STYLE {
+    display: block;
+    padding: 5px;
+}
+
+.body-style {
+    height: 80vh;
+    width: 70vw;
+    background-color: white;
+}
+
+.footer-style {
+    height: 15vh;
+    width: 70vw;
+    background-color: black;
+}
+
+.footer-logo-style {
+    width: 15%;
+}
+
+.content-cam-style {
+    overflow-y: scroll;
+    height: 80vh;
+    width: 68vw;
+    background-color: white;
+}
+
+img {
+    display: block;
+    max-width: 800px;
+    max-height: 800px;
+    width: 100%;
+    height: 100%;
+}
+
+@media screen and (max-width: 1000px) {
+    .root-container {
+        display: flex;
+        flex-wrap: wrap;
+        overflow-y: scroll;
+    }
+
+    .footer-style {
+        width: 100vw;
+        margin: 0;
+    }
+
+    .footer-logo-style {
+        width: 40%;
+    }
+
+    .body-style {
+        width: 100vw;
+    }
+
+    .content-cam-style {
+        height: auto;
+        width: 100%;
+    }
+
+    .adapter {
+        display: inline-block;
+    }
+
+}
