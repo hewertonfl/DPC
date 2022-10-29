@@ -1,0 +1,6 @@
+{
+    "python.analysis.extraPaths": [
+        "C:\\Users\\hewer\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\dash\\__init__.py",
+        "./yolov5app"
+    ]
+}
