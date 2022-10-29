@@ -145,12 +145,13 @@ layout = html.Div(
         
         dbc.Row(
             [
-                html.Div([html.Img(id='img',src="./assets/logo.png",alt='logo',className="footer-logo-style"),
-                ],style={'text-align':'center'})            
+                dbc.Col(html.Img(id='img',src="./assets/logo.png",alt='logo',className="footer-logo-style"),
+                align="center",style={"display":"flex","justify-content":"center"})            
             ],
             justify="center",
             className="footer-style",
-            align="center")
+           ),
+    
     ],justify="center"),
 
     html.P(id='placeholder'),

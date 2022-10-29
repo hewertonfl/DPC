@@ -1,14 +1,12 @@
 # Run this app with `python app.py` and
 # visit http://127.0.0.1:8050/ in your web browser.
 
-from pickle import TRUE
-from pydoc import classname
-from turtle import position, width
+
 import dash
 import dash_core_components as dcc
 import dash_bootstrap_components as dbc
 import dash_html_components as html
-from dash.dependencies import Input, Output, State
+from dash.dependencies import Input, Output
 from dash_bootstrap_templates import load_figure_template
 from dash.exceptions import PreventUpdate
 from assets.npdr import read_database
@@ -120,22 +118,35 @@ layout = html.Div(
     ],style={"overflow":"hidden","background-color":"rgb(20,20,20)"}
 )
 
-@dash.callback(
-    Output('img','src'),
-    Input('radioitems_input','value')
-)
+# @dash.callback(
+#     Output('img','src'),
+#     Input('radioitems_input','value')
+# )
 
-def _(radioitems_input):
-    img=f'./assets/{radioitems_input}'
-    #print(img)
-    return img
+# def _(radioitems_input):
+#     img=f'./assets/{radioitems_input}'
+#     #print(img)
+#     return img
     
 @dash.callback(
     Output('box1','children'),
     Output('box2','children'),
     Output('box3','children'),
+    Output('img','src'),
+    Input('radioitems_input','value'),
     Input('detectar','n_clicks'),
+    prevent_initial_call=True
 )
+
+def update_img(radioitems_input,detectar):
+    ctx = dash.callback_context
+    triggered_id = ctx.triggered_id 
+
+    if triggered_id == "detectar":
+       return __(detectar)
+    else:
+        return _(radioitems_input)
+
 
 def __(n_clicks):
     if n_clicks ==1:
@@ -143,16 +154,21 @@ def __(n_clicks):
         f=open("./assets/imagens/digitosplaca.txt", "r+")
         digitosplaca = f.readline()
         if(digitosplaca == ""):
-            box1,box2,box3 = ["ERRO", "ERRO", "ERRO"]
+            box1,box2,box3 = ["ERRO"]*3
+            return ["Nome: "+box1],["Carro: "+box2],["Placa: "+ box3],"./assets/lupa.png"
         else:
             box1,box2,box3=read_database(digitosplaca)
-        return ["Nome: "+box1],["Carro: "+box2],["Placa: "+ box3]
+            return ["Nome: "+box1],["Carro: "+box2],["Placa: "+ box3],"./assets/imagens/placa.jpg"
     else:
         raise PreventUpdate
 
+def _(radioitems_input):
+    img=f'./assets/{radioitems_input}'
+    print(img)
+    return "Aguardando ação...","Aguardando ação...","Aguardando ação...",img
 
 if __name__ == '__main__':
-    dash.run_server(host='0.0.0.0', port='8050', debug=True,)
+    dash.run_server(host='0.0.0.0', port='8050', debug=False,)
 
 # if __name__ == "__main__":
 #     from waitress import serve
