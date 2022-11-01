@@ -34,13 +34,13 @@ navbar = dbc.NavbarSimple(
         # ),
     ],
     brand="Cadastro",
-    brand_href="/home",
+    brand_href="/",
     brand_style={"margin-left":""},
     color="primary",
     dark=True,
     style={"display":"inline-block","visibility":"visible","z-index":"10"},
 )
-#Função que retorna os nome e as caixas com os inputs
+#Função que retorna os nomes e as caixas com os inputs
 def input_box(item,id):
     return html.Div(
         [
@@ -56,7 +56,7 @@ def input_box(item,id):
             ,outline=True,style={"border":"none","opacity":"60%"}),
         ],style={"margin-top":"20px","border-radius":"20px 20px 20px 20px"},)
 
-#Layout da barra de cadastro
+#Layout do card de cadastro
 cad= html.Div([
                 dbc.Container(
                     [
@@ -86,7 +86,7 @@ cad= html.Div([
                     ],className="cad-style"),
             ],style={"display":"block","height":"100%","background-color":"",})
 
-# Função que retorna o Card
+# Função que builda o card com o carro
 def fig_card(text):
     return html.Div([
             dbc.Container(
@@ -158,7 +158,7 @@ layout = html.Div(
 
 ],style={"height":"100vh","width":"100vw","overflow":"hidden","margin":"0"})
 
-# Retorna os valores do inputs digitados na barra de cadastro
+# Retorna os valores dos inputs digitados na barra de cadastro
 @dash.callback(
     Output('input1','value'),
     Output('input2','value'),
