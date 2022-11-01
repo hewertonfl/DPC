@@ -2,6 +2,7 @@
 # visit http://127.0.0.1:8050/ in your web browser.
 
 
+from turtle import width
 import dash
 import dash_core_components as dcc
 import dash_bootstrap_components as dbc
@@ -69,21 +70,31 @@ sidebar = html.Div(
             ],
             flush=True),
         dbc.Row([
-            dbc.Col(dbc.Button('Home', id='home',href='/home', n_clicks=0,style={"width":"100%"}),style={"padding":"5px"}),
+            dbc.Col(dbc.Button('Home', id='home',href='/', n_clicks=0,style={"width":"100%"}),style={"padding":"5px"}),
             dbc.Col(dbc.Button('Detectar', id='detectar', n_clicks=0,style={"width":"100%"}),style={"padding":"5px"}),
             # dbc.Col(dbc.Button('Submit', id='3', n_clicks=0,style={"width":"100%"}),style={"padding":"5px"}),
         ],justify ="center",style={"margin":"0","position":"relative","top":"20px"}),
         dbc.Row([dbc.Col( dbc.RadioItems(
             options=[
                 {"label": "Placa", "value": "imagens/placa.jpg"},
-                {"label": "Carro", "value": "carro.jpg"},
+                {"label": "Imagem Original", "value": "imagens/imagemSemCrop.jpg"},
             ],
-            className= "radio-hover",
-            value="lupa.png",
-            id="radioitems_input",
-            inline=True),style={"display":"flex","justify-content":"center","position":"relative","top":"30px"})
+                className= "radio-hover",
+                value="lupa.png",
+                id="radioitems_input",
+                inline=True,
+                label_style={"display":"flex","justify-self":"center"},
+                #style={"display":"flex","justify-content":"end"}
+                ),
+                style={"position":"relative","top":"30px","display":"flex","justify-content":"space-around","margin-right":"50px"},
+                width={"size":9}
+                )
 
-            ])
+            ],
+            style={"visibility":"visible"},
+            id="display-items",
+            justify="center",
+            )
     ],
     style=SIDEBAR_STYLE,
 )
@@ -101,7 +112,7 @@ imgCard = html.Div(
 
 #Montagem do layout
 layout = html.Div(
-    [
+    [   dcc.Location(id="f5",refresh=True),
         dbc.Row(
             [
             dbc.Col([sidebar,],
@@ -115,7 +126,9 @@ layout = html.Div(
             ],align="center",
             width=9)
         ],style={"height":"100vh","overflow":"hidden",},align="center")
-    ],style={"overflow":"hidden","background-color":"rgb(20,20,20)"}
+    ],
+    style={"overflow":"hidden","background-color":"rgb(20,20,20)"},
+    
 )
 
 # @dash.callback(
@@ -133,6 +146,7 @@ layout = html.Div(
     Output('box2','children'),
     Output('box3','children'),
     Output('img','src'),
+    Output('display-items','style'),
     Input('radioitems_input','value'),
     Input('detectar','n_clicks'),
     prevent_initial_call=True
@@ -147,25 +161,24 @@ def update_img(radioitems_input,detectar):
     else:
         return _(radioitems_input)
 
-
 def __(n_clicks):
-    if n_clicks ==1:
+    if n_clicks >0:
         run()
+        global box1,box2,box3
         f=open("./assets/imagens/digitosplaca.txt", "r+")
         digitosplaca = f.readline()
         if(digitosplaca == ""):
             box1,box2,box3 = ["ERRO"]*3
-            return ["Nome: "+box1],["Carro: "+box2],["Placa: "+ box3],"./assets/lupa.png"
+            return ["Nome: "+box1],["Carro: "+box2],["Placa: "+ box3],"./assets/lupa.png",{"visibility":"hidden"},
         else:
             box1,box2,box3=read_database(digitosplaca)
-            return ["Nome: "+box1],["Carro: "+box2],["Placa: "+ box3],"./assets/imagens/placa.jpg"
+            return ["Nome: "+box1],["Carro: "+box2],["Placa: "+ box3],"./assets/imagens/placa.jpg",{"visibility":"visible"},
     else:
         raise PreventUpdate
 
 def _(radioitems_input):
     img=f'./assets/{radioitems_input}'
-    print(img)
-    return "Aguardando ação...","Aguardando ação...","Aguardando ação...",img
+    return ["Nome: "+box1],["Carro: "+box2],["Placa: "+ box3],img,{"visibility":"visible"},
 
 if __name__ == '__main__':
     dash.run_server(host='0.0.0.0', port='8050', debug=False,)

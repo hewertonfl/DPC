@@ -14,7 +14,7 @@ import waitress
 from assets.npdr import database
 from yolov5app.custom_detect import run
 
-dash.register_page(__name__)
+dash.register_page(__name__,path='/')
 
 ## Elementos do layout
 #Navbar
@@ -160,17 +160,22 @@ layout = html.Div(
 
 # Retorna os valores do inputs digitados na barra de cadastro
 @dash.callback(
-    Output('placeholder','n_clicks'),
+    Output('input1','value'),
+    Output('input2','value'),
+    Output('input3','value'),
+    Output('save-button','n_clicks'),
     Input('input1','value'),
     Input('input2','value'),
     Input('input3','value'),
     Input('save-button','n_clicks'),
+    prevent_initial_call=True
 )
 def _(input1,input2,input3,n_clicks):
-    if n_clicks == 1:
+    if n_clicks>0:
         database(input1,input2,input3)
+        return '','','',0
     else:
         return
     
 if __name__ == '__main__':
-    dash.run_server(host='0.0.0.0',port='8050',debug=True)
+    dash.run_server(host='0.0.0.0',port='8050',debug=False)

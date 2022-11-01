@@ -56,7 +56,7 @@ imagesPath = imagesPath.replace('\\','/')
 @smart_inference_mode()
 def run(
         weights=ROOT / 'best.pt',  # model path or triton URL
-        source=ROOT / 'data/images',  # file/dir/URL/glob/screen/0(webcam)
+        source=ROOT / imagesPath,  # file/dir/URL/glob/screen/0(webcam)
         data=ROOT / 'data/custom_coco.yaml',  # dataset.yaml path
         imgsz=(640, 640),  # inference size (height, width)
         conf_thres=0.5,  # confidence threshold
@@ -87,7 +87,7 @@ def run(
     # Salvar captura de tela
     cam = cv2.VideoCapture(0)
     result, image = cam.read()
-    cv2.imwrite("{}/placa.jpg".format(source), image)
+    cv2.imwrite("{}/imagemSemCrop.jpg".format(source), image)
 
     source = str(source)
     save_img = not nosave and not source.endswith('.txt')  # save inference images
