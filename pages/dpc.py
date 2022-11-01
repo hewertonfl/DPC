@@ -91,7 +91,7 @@ sidebar = html.Div(
                 )
 
             ],
-            style={"visibility":"visible"},
+            style={"visibility":"hidden"},
             id="display-items",
             justify="center",
             )
