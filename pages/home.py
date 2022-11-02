@@ -1,9 +1,3 @@
-# Run this app with `python app.py` and
-# visit http://127.0.0.1:8050/ in your web browser.
-
-from pickle import TRUE
-from pydoc import classname
-from turtle import position, width
 import dash
 import dash_core_components as dcc
 import dash_bootstrap_components as dbc
@@ -154,8 +148,6 @@ layout = html.Div(
     
     ],justify="center"),
 
-    html.P(id='placeholder'),
-
 ],style={"height":"100vh","width":"100vw","overflow":"hidden","margin":"0"})
 
 # Retorna os valores dos inputs digitados na barra de cadastro
@@ -176,6 +168,3 @@ def _(input1,input2,input3,n_clicks):
         return '','','',0
     else:
         return
-    
-if __name__ == '__main__':
-    dash.run_server(host='0.0.0.0',port='8050',debug=False)

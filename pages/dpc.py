@@ -1,7 +1,3 @@
-# Run this app with `python app.py` and
-# visit http://127.0.0.1:8050/ in your web browser.
-
-
 from turtle import width
 import dash
 import dash_core_components as dcc
@@ -74,27 +70,35 @@ sidebar = html.Div(
             dbc.Col(dbc.Button('Detectar', id='detectar', n_clicks=0,style={"width":"100%"}),style={"padding":"5px"}),
             # dbc.Col(dbc.Button('Submit', id='3', n_clicks=0,style={"width":"100%"}),style={"padding":"5px"}),
         ],justify ="center",style={"margin":"0","position":"relative","top":"20px"}),
-        dbc.Row([dbc.Col( dbc.RadioItems(
-            options=[
-                {"label": "Placa", "value": "imagens/placa.jpg"},
-                {"label": "Imagem Original", "value": "imagens/imagemSemCrop.jpg"},
-            ],
-                className= "radio-hover",
-                value="lupa.png",
-                id="radioitems_input",
-                inline=True,
-                label_style={"display":"flex","justify-self":"center"},
-                #style={"display":"flex","justify-content":"end"}
-                ),
-                style={"position":"relative","top":"30px","display":"flex","justify-content":"space-around","margin-right":"50px"},
-                width={"size":9}
-                )
+        dbc.Row(
+            [
+                dbc.Col( dbc.RadioItems(
+                    options=[
+                        {"label": "Placa", "value": "imagens/placa.jpg"},
+                        {"label": "Imagem Original", "value": "imagens/imagemSemCrop.jpg"},
+                    ],
+                        className= "radio-hover",
+                        value="lupa.png",
+                        id="radioitems_input",
+                        inline=True,
+                        label_style={"display":"flex","justify-self":"center"},
+                        #style={"display":"flex","justify-content":"end"}
+                    ),
+                    style={"position":"relative","top":"30px","display":"flex","justify-content":"space-around","margin-right":"50px"},
+                    width={"size":9}
+                    )
 
             ],
             style={"visibility":"hidden"},
             id="display-items",
             justify="center",
-            )
+            ),
+        dbc.Row(
+        [
+            dbc.Col(html.Img(id='img',src="./assets/logo.png",alt='logo',style={"width":"50%"}),
+            align="center",style={"display":"flex","justify-content":"center","position":"relative","top":"100px"})            
+        ], 
+        ),
     ],
     style=SIDEBAR_STYLE,
 )
@@ -115,32 +119,23 @@ layout = html.Div(
     [   dcc.Location(id="f5",refresh=True),
         dbc.Row(
             [
-            dbc.Col([sidebar,],
-           ),
+            dbc.Col([sidebar]),
 
             dbc.Col(
-            [
-               
+            [ 
                 dbc.Col([imgCard],align="center")                            
       
-            ],align="center",
+            ],
+            align="center",
             width=9)
-        ],style={"height":"100vh","overflow":"hidden",},align="center")
+        ],
+        style={"height":"100vh","overflow":"hidden",},align="center")
+
     ],
     style={"overflow":"hidden","background-color":"rgb(20,20,20)"},
     
 )
 
-# @dash.callback(
-#     Output('img','src'),
-#     Input('radioitems_input','value')
-# )
-
-# def _(radioitems_input):
-#     img=f'./assets/{radioitems_input}'
-#     #print(img)
-#     return img
-    
 @dash.callback(
     Output('box1','children'),
     Output('box2','children'),
@@ -163,7 +158,7 @@ def update_img(radioitems_input,detectar):
 
 def __(n_clicks):
     if n_clicks >0:
-        run()
+        #run()
         global box1,box2,box3
         f=open("./assets/imagens/digitosplaca.txt", "r+")
         digitosplaca = f.readline()
@@ -182,8 +177,3 @@ def _(radioitems_input):
 
 if __name__ == '__main__':
     dash.run_server(host='0.0.0.0', port='8050', debug=False,)
-
-# if __name__ == "__main__":
-#     from waitress import serve
-#     print('Run server on 0.0.0.0:8888')
-#     serve(app.server, port=8000, host="0.0.0.0")
