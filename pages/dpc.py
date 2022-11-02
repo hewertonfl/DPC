@@ -158,7 +158,7 @@ def update_img(radioitems_input,detectar):
 
 def __(n_clicks):
     if n_clicks >0:
-        #run()
+        run()
         global box1,box2,box3
         f=open("./assets/imagens/digitosplaca.txt", "r+")
         digitosplaca = f.readline()
