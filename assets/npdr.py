@@ -42,7 +42,7 @@ def read_database(digitosplaca):
 
 if __name__ == '__main__':
     #print(type(os.getcwd()))
-    database('ola',55,553)
+    print((read_database(111)))
 
 
 

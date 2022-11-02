@@ -1,4 +1,3 @@
-from turtle import width
 import dash
 import dash_core_components as dcc
 import dash_bootstrap_components as dbc
@@ -7,7 +6,7 @@ from dash.dependencies import Input, Output
 from dash_bootstrap_templates import load_figure_template
 from dash.exceptions import PreventUpdate
 from assets.npdr import read_database
-from yolov5app.custom_detect import run
+from yolov5app.custom_detect import run,image_capture
 
 dash.register_page(__name__)
 
@@ -75,7 +74,7 @@ sidebar = html.Div(
                 dbc.Col( dbc.RadioItems(
                     options=[
                         {"label": "Placa", "value": "imagens/placa.jpg"},
-                        {"label": "Imagem Original", "value": "imagens/imagemSemCrop.jpg"},
+                        {"label": "Imagem Original", "value": "imagens/OriginalImage.jpg"},
                     ],
                         className= "radio-hover",
                         value="lupa.png",
@@ -158,11 +157,12 @@ def update_img(radioitems_input,detectar):
 
 def __(n_clicks):
     if n_clicks >0:
+        image_capture()
         run()
         global box1,box2,box3
         f=open("./assets/imagens/digitosplaca.txt", "r+")
         digitosplaca = f.readline()
-        if(digitosplaca == ""):
+        if(read_database(digitosplaca) == ["ERRO","ERRO","ERRO"]):
             box1,box2,box3 = ["ERRO"]*3
             return ["Nome: "+box1],["Carro: "+box2],["Placa: "+ box3],"./assets/lupa.png",{"visibility":"hidden"},
         else:
@@ -177,3 +177,4 @@ def _(radioitems_input):
 
 if __name__ == '__main__':
     dash.run_server(host='0.0.0.0', port='8050', debug=False,)
+

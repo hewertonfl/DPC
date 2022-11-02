@@ -53,10 +53,16 @@ global imagesPath
 imagesPath = str(os.getcwd())+'/assets/imagens'
 imagesPath = imagesPath.replace('\\','/')
 
+def image_capture():
+    """Apenas captura uma imagem com a webcam"""
+    cam = cv2.VideoCapture(0)
+    result,image = cam.read()
+    cv2.imwrite(f"{imagesPath}/OriginalImage.jpg", image)
+
 @smart_inference_mode()
 def run(
         weights=ROOT / 'best.pt',  # model path or triton URL
-        source=ROOT / imagesPath,  # file/dir/URL/glob/screen/0(webcam)
+        source=ROOT / f'{imagesPath}/OriginalImage.jpg',  # file/dir/URL/glob/screen/0(webcam)
         data=ROOT / 'data/custom_coco.yaml',  # dataset.yaml path
         imgsz=(640, 640),  # inference size (height, width)
         conf_thres=0.5,  # confidence threshold
@@ -66,14 +72,14 @@ def run(
         view_img=False,  # show results
         save_txt=False,  # save results to *.txt
         save_conf=False,  # save confidences in --save-txt labels
-        save_crop=True,  # save cropped prediction boxes
+        save_crop=False,  # save cropped prediction boxes
         nosave=False,  # do not save images/videos
         classes=None,  # filter by class: --class 0, or --class 0 2 3
         agnostic_nms=False,  # class-agnostic NMS
         augment=False,  # augmented inference
         visualize=False,  # visualize features
         update=False,  # update all models
-        project=ROOT / imagesPath,  # save results to project/name
+        project=ROOT / f'{imagesPath}',  # save results to project/name
         name='exp',  # save results to project/name
         exist_ok=True,  # existing project/name ok, do not increment
         line_thickness=3,  # bounding box thickness (pixels)
@@ -84,10 +90,6 @@ def run(
         vid_stride=1,  # video frame-rate stride
 ):
     print("ESTOU RODANDO")
-    # Salvar captura de tela
-    cam = cv2.VideoCapture(0)
-    result, image = cam.read()
-    cv2.imwrite("{}/imagemSemCrop.jpg".format(source), image)
 
     source = str(source)
     save_img = not nosave and not source.endswith('.txt')  # save inference images
@@ -208,8 +210,9 @@ def run(
                         #cv2.waitKey()
 
                         # Algoritmo para descobrir a maior caixa, e retornar os dígitos dela
-                        
+                        cv2.imwrite(f"{imagesPath}/placa.jpg", thresh)
                         reconhecimentoDigitos = reader.readtext(thresh)
+                        print(reconhecimentoDigitos)
 
                         digitoscertos = ""
                         maiorcaixanum = 0
@@ -237,7 +240,7 @@ def run(
                         #annotator.box_label(xyxy, digitoscertos, color=colors(c, True))
 
 
-                        f=open("{}/digitosplaca.txt".format(project), "w")
+                        f=open("{}/digitosplaca.txt".format(imagesPath), "w")
                         f.write(str(digitoscertos))
                         f.close()
                         
@@ -279,13 +282,13 @@ def run(
             #        vid_writer[i].write(im0)
 
         if(len(det) == 0):
-            f=open("{}/digitosplaca.txt".format(project), "w")
+            f=open("{}/digitosplaca.txt".format(imagesPath), "w")
             f.write("")
             f.close()
 
 
         # Print time (inference-only)
-        LOGGER.info(f"{s}{'' if len(det) else '(no detections), '}{dt[1].dt * 1E3:.1f}ms")
+    #     LOGGER.info(f"{s}{'' if len(det) else '(no detections), '}{dt[1].dt * 1E3:.1f}ms")
 
     # Print results
     t = tuple(x.t / seen * 1E3 for x in dt)  # speeds per image
@@ -317,7 +320,7 @@ def parse_opt():
     parser.add_argument('--augment', action='store_true', help='augmented inference')
     parser.add_argument('--visualize', action='store_true', help='visualize features')
     parser.add_argument('--update', action='store_true', help='update all models')
-    parser.add_argument('--project', default=ROOT / imagesPath, help='save results to project/name')
+    parser.add_argument('--project', default=ROOT / 'runs/detect', help='save results to project/name')
     parser.add_argument('--name', default='exp', help='save results to project/name')
     parser.add_argument('--exist-ok', action='store_true', help='existing project/name ok, do not increment')
     parser.add_argument('--line-thickness', default=3, type=int, help='bounding box thickness (pixels)')
@@ -338,6 +341,5 @@ def main(opt):
 
 
 if __name__ == "__main__":
-    opt = parse_opt()
-    main(opt)
-    print(imagesPath)
+     opt = parse_opt()
+     main(opt)
