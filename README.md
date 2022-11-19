@@ -1,6 +1,6 @@
 # Desenvolvimento de um sistema para cadastro e detecção de placas de veículos usando visão computacional.
 # Objetivos
-- Essa aplicativo faz parte de um projeto cujo a ideia principal é fazer verificações automáticas de placas de veículos usando visão computacional.
+- Essa aplicativo faz parte de um projeto cuja a ideia principal é fazer verificações automáticas de placas de veículos usando visão computacional.
 
 ## Home Page
 - Na imagem abaixo temos uma preview da página de registro de dados do proprietário do veículo.
