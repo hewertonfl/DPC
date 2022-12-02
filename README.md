@@ -8,16 +8,19 @@ Nessa página, o usuário poderá cadastrar o veículo:
   - Passando o nome do proprietário
   - Modelo do carro
   - Placa
-  
+ *** 
 ![Página de Registro do veículo](https://github.com/hewertonfl/Dash_Plate-3/blob/master/img/Registro.jpg)
-
+***
 # DPC - Detecção de placa de carro
 
 - Tendo registrado os dados do veículo, podemos fazer a detecção da placa do veiculo, clicando em detectar.
+***
 ![Página de detecção](https://github.com/hewertonfl/Dash_Plate-3/blob/master/img/detecção.jpg)
 
 - Abaixo, temos um teste feito usando a webcam do notebook:
+***
 ![Teste - Imagem Original](https://github.com/hewertonfl/Dash_Plate-3/blob/master/img/Teste2.jpg)
 
 - A seguir, temos a detecção fazendo o recorte da placa e exibindo os dados buscados dentro do banco.
+***
 ![Teste - Imagem Original](https://github.com/hewertonfl/Dash_Plate-3/blob/master/img/Teste1.jpg)
