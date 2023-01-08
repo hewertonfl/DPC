@@ -1,5 +1,5 @@
 # Desenvolvimento de um sistema para cadastro e detecção de placas de veículos usando visão computacional.
-# Objetivos
+## Objetivos
 - Esse aplicativo faz parte de um projeto cuja a ideia principal é fazer verificações automáticas de placas de veículos usando visão computacional.
 
 ## Home Page
@@ -11,7 +11,7 @@ Nessa página, o usuário poderá cadastrar o veículo:
  *** 
 ![Página de Registro do veículo](https://github.com/hewertonfl/Dash_Plate-3/blob/master/img/Registro.jpg)
 ***
-# DPC - Detecção de placa de carro
+## DPC - Detecção de placa de carro
 
 - Tendo registrado os dados do veículo, podemos fazer a detecção da placa do veiculo, clicando em detectar.
 ***
